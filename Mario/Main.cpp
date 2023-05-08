@@ -16,10 +16,7 @@ int main()
 
     sf::Texture texture;
     if (!texture.loadFromFile("../floor.png")) // Replace "texture.png" with your actual texture file path
-    {
-        // Failed to load texture
         return -1;
-    }
 
     sf::Sprite sprite(texture);
     sprite.setPosition(0, 768 - 62); // Set the position of the sprite at the bottom
