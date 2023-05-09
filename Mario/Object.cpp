@@ -8,6 +8,7 @@ Object::Object(sf::RenderWindow* window)
 void	Object::setPosition(sf::Vector2f pos)
 {
 	this->_pos = pos;
+    this->_sprite.setPosition(pos);
 }
 
 sf::Vector2f Object::getPosition()
@@ -27,4 +28,6 @@ sf::IntRect Object::boundingBox()
     bounds.height = static_cast<int>(localBounds.height);
     return bounds;
 }
+
+
 

@@ -14,8 +14,8 @@ public:
 	void	setPosition(sf::Vector2f pos);
 	sf::Vector2f getPosition();
 	sf::IntRect boundingBox();
-	virtual void move(void);
-	virtual void fall(void);
-	virtual void jump(bool down);
+	virtual void move(void) = 0;
+	//virtual void fall(void) = 0;
+	//virtual void jump(bool down) = 0;
 };
 
