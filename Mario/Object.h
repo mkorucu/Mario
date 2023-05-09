@@ -12,7 +12,6 @@ protected:
 public:
 	Object(sf::RenderWindow* window);
 	void	setSpriteTexture(char *texture);
-	sf::Sprite	getSprite();
 	//void	setPosition(sf::Vector2f pos);
 	//sf::Vector2f getPosition();
 	//sf::IntRect boundingBox();
