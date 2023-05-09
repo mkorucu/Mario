@@ -1,21 +1,16 @@
-﻿//#include "main.h"
+﻿#include "main.h"
 
-//int main()
-//{
-//	Game game;
-//	sf::RenderWindow window(sf::VideoMode(1024, 768), "Mario");
-//	game.drawBackground(window);
-//	return 0;
-//}
 
-#include <SFML/Graphics.hpp>
+
 
 int main()
 {
+    sf::err().rdbuf(NULL);
     sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML Window");
-
+    Game game;
+    game.drawBackground(window);
     sf::Texture texture;
-    if (!texture.loadFromFile("../floor.png")) // Replace "texture.png" with your actual texture file path
+    if (!texture.loadFromFile("../assets/floor.png")) // Replace "texture.png" with your actual texture file path
         return -1;
 
     sf::Sprite sprite(texture);

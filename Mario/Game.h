@@ -5,6 +5,9 @@ class Game
 {
 private:
 	int	_speed;
+	Object floor;
+	Object brick;
+	Object pipe;
 	
 public:
 	void	drawBackground(sf::RenderWindow& window);
