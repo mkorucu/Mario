@@ -28,7 +28,7 @@ Game::Game(sf::RenderWindow& window)
     this->_brick[4].setTextureRect(sf::IntRect(0, 0, 420, 34));
     this->_brick[5].setPosition(0, (float)window.getSize().y * 3 / 4);
     this->_brick[5].setTextureRect(sf::IntRect(0, 0, 360, 34));
-    this->_brick[6].setPosition((float)window.getSize().x - 360, window.getSize().y * 3 / 4);
+    this->_brick[6].setPosition((float)window.getSize().x - 360, (float)window.getSize().y * 3 / 4);
     this->_brick[6].setTextureRect(sf::IntRect(0, 0, 360, 34));
 
 
