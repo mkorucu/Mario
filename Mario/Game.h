@@ -5,11 +5,8 @@ class Game
 {
 private:
 	int	_speed;
-	/*Object floor;
-	Object brick;
-	Object pipe;*/
-	
 public:
+	Game();
 	void	drawBackground(sf::RenderWindow& window);
 	//bool	onFloor(Object* obj);
 	//bool	checkCollusion(Turtle* t, Mario* m, int& side);
