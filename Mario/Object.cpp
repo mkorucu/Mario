@@ -5,15 +5,26 @@ Object::Object(sf::RenderWindow* window)
 	this->_window = window;
 }
 
-void	Object::setSpriteTexture(char* texture)
+void	Object::setPosition(sf::Vector2f pos)
 {
-	int i = 0;
-	sf::Texture* curr;
-	curr = _textures;
-	while (curr != NULL)
-		curr++;
-	if (!curr->loadFromFile(texture))
-		return ;
-	this->_sprite.setTexture(*curr);
-
+	this->_pos = pos;
 }
+
+sf::Vector2f Object::getPosition()
+{
+	return (this->_pos);
+}
+
+sf::IntRect Object::boundingBox()
+{
+	sf::IntRect bounds;
+    
+    sf::FloatRect localBounds = this->_sprite.getGlobalBounds();
+    
+    bounds.left = static_cast<int>(localBounds.left);
+    bounds.top = static_cast<int>(localBounds.top);
+    bounds.width = static_cast<int>(localBounds.width);
+    bounds.height = static_cast<int>(localBounds.height);
+    return bounds;
+}
+

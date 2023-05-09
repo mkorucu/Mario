@@ -11,12 +11,11 @@ protected:
 	int	_heading;
 public:
 	Object(sf::RenderWindow* window);
-	void	setSpriteTexture(char *texture);
-	//void	setPosition(sf::Vector2f pos);
-	//sf::Vector2f getPosition();
-	//sf::IntRect boundingBox();
-	//virtual void move(void);
-	//virtual void fall(void);
-	//virtual void jump(bool down);
+	void	setPosition(sf::Vector2f pos);
+	sf::Vector2f getPosition();
+	sf::IntRect boundingBox();
+	virtual void move(void);
+	virtual void fall(void);
+	virtual void jump(bool down);
 };
 

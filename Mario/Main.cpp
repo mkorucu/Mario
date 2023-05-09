@@ -7,6 +7,5 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
     Game    game(window);
     game.drawBackground(window);
-    
     return 0;
 }
