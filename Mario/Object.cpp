@@ -28,3 +28,7 @@ sf::IntRect Object::boundingBox()
     return bounds;
 }
 
+void    Object::draw(sf::RenderWindow& window)
+{
+
+}
