@@ -1,4 +1,5 @@
 #include "main.h"
+#include "Game.h"
 
 Game::Game(sf::RenderWindow& window)
 {
@@ -45,9 +46,31 @@ void    Game::setBackground(sf::RenderWindow& window)
     this->_pipes[2].setPosition(130, (float)window.getSize().y - 166);
     this->_pipes[3].setTexture(this->_pipesBackground[1]);
     this->_pipes[3].setPosition((float)window.getSize().x - 130, (float)window.getSize().y - 166);
+
 }
 
-void	Game::drawBackground(sf::RenderWindow& window)
+bool Game::onFloor(Object *obj)
+{
+    for(int i = 0; i < 7; i++)
+        if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_brick[i].getGlobalBounds())))
+        {
+            std::cout << "intersects brick " << i << std::endl;
+	        return true;
+        }
+    for(int i = 0; i < 4; i++)
+        if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_pipes[i].getGlobalBounds())))
+            {
+                std::cout << "intersects pipe " << i << std::endl;
+                return true;
+            }
+        if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_floor.getGlobalBounds())))
+        {
+            std::cout << "intersects floor" << std::endl;
+            return (true);
+        }
+    return (false);
+}
+void Game::drawBackground(sf::RenderWindow &window)
 {
     for (int i = 0; i < 7; i++)
         window.draw(this->_brick[i]);

@@ -14,7 +14,9 @@ int main()
                 window.close();
         window.clear();
         game.drawBackground(window);
+        game.onFloor(objects);
         objects->move();
+        objects->jump(true);
         window.display();
         sf::sleep(sf::milliseconds(10));
     }

@@ -16,6 +16,6 @@ public:
 	sf::IntRect boundingBox();
 	virtual void move(void) = 0;
 	//virtual void fall(void) = 0;
-	//virtual void jump(bool down) = 0;
+	virtual void jump(bool down) = 0;
 };
 

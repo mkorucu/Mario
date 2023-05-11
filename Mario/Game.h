@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-
+#include "Object.h"
 class Game
 {
 private:
@@ -17,6 +17,8 @@ public:
 	Game(sf::RenderWindow &window);
 	void	drawBackground(sf::RenderWindow& window);
 	void	setBackground(sf::RenderWindow& window);
+	bool	onFloor(Object *obj);
+
 	//bool	onFloor(Object* obj);
 	//bool	checkCollusion(Turtle* t, Mario* m, int& side);
 };
