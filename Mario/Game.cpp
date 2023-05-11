@@ -49,23 +49,9 @@ void    Game::setBackground(sf::RenderWindow& window)
 
 void	Game::drawBackground(sf::RenderWindow& window)
 {
-    // while (window.isOpen())
-    // {
-    //     sf::Event event;
-    //     while (window.pollEvent(event))
-    //         if (event.type == sf::Event::Closed)
-    //             window.close();
-    //     window.clear();
-    //     for (int i = 0; i < 7; i++)
-    //         window.draw(this->_brick[i]);
-    //     for (int i = 0; i < 4; i++)
-    //         window.draw(this->_pipes[i]);
-    //     window.draw(this->_floor);
-    //     window.display();
-    // }
     for (int i = 0; i < 7; i++)
-            window.draw(this->_brick[i]);
-        for (int i = 0; i < 4; i++)
-            window.draw(this->_pipes[i]);
-        window.draw(this->_floor);
+        window.draw(this->_brick[i]);
+    for (int i = 0; i < 4; i++)
+        window.draw(this->_pipes[i]);
+    window.draw(this->_floor);
 }
