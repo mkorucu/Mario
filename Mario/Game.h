@@ -18,6 +18,7 @@ public:
 	void	drawBackground(sf::RenderWindow& window);
 	void	setBackground(sf::RenderWindow& window);
 	bool	onFloor(Object *obj);
+	//side	intersecting(Object *obj);
 
 	//bool	onFloor(Object* obj);
 	//bool	checkCollusion(Turtle* t, Mario* m, int& side);

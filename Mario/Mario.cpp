@@ -19,42 +19,46 @@ Mario::Mario(sf::RenderWindow *window) : Object(window)
 	this->_heading = LEFT;
 }
 
-void	Mario::move()
+void	Mario::move(bool down)
 {
 	static	int	walking = 0;
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
+		this->_vx = 5;
 		if (this->_heading == RIGHT)
 		{
 			this->_sprite.scale(-1.f, 1.f);
 			this->_pos.x -= this->_sprite.getGlobalBounds().width;
 			this->_heading = LEFT;
 		}
-		else
+		else if (this->_pos.x > 0 && (this->_vy != 0 || down == true))
 			this->_pos.x -= this->_vx;
 		if (this->_vy == 0)
 			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
+		this->_vx = 5;
 		if (this->_heading == LEFT)
 		{
 			this->_sprite.scale(-1.f, 1.f);
 			this->_pos.x += this->_sprite.getGlobalBounds().width;
 			this->_heading = RIGHT;
 		}
-		else
+		else if (this->_pos.x < this->_window->getSize().x && (this->_vy != 0 || down == true))
 			this->_pos.x += this->_vx;
 		if (this->_vy == 0)
 			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
 	}
-	if (this->_vy == 0 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+	if (this->_vy == 0  && this->_vx != 0 && ((!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) 
+	|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))))
+	{
+		this->_vx -= 0.5;
+		this->_pos.x += this->_heading * this->_vx;
+		this->_sprite.setTexture(this->_textures[4]);
+	}
+	if (this->_vx == 0)
 		this->_sprite.setTexture(this->_textures[0]);
-	if (this->_vy == 0 && (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-		this->_sprite.setTexture(this->_textures[0]);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		this->_pos.y += this->_vy;
 	this->setPosition(this->_pos);
 	this->_window->draw(this->_sprite);
 }
@@ -62,7 +66,6 @@ void	Mario::move()
 
 void	Mario::jump(bool down)
 {
-	float	a = 1.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && this->_vy == 0)
 	{
 		this->_sprite.setTexture(this->_textures[5]);
