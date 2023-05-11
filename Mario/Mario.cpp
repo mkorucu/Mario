@@ -34,7 +34,7 @@ void	Mario::move()
 		else
 			this->_pos.x -= this->_vx;
 		if (this->_vy == 0)
-			this->_sprite.setTexture(this->_textures[(walking++ % 30) / 10 + 1]);
+			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
@@ -47,8 +47,12 @@ void	Mario::move()
 		else
 			this->_pos.x += this->_vx;
 		if (this->_vy == 0)
-			this->_sprite.setTexture(this->_textures[(walking++ % 30) / 10 + 1]);
+			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
 	}
+	if (this->_vy == 0 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+		this->_sprite.setTexture(this->_textures[0]);
+	if (this->_vy == 0 && (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+		this->_sprite.setTexture(this->_textures[0]);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		this->_pos.y += this->_vy;
 	this->setPosition(this->_pos);
@@ -62,17 +66,26 @@ void	Mario::jump(bool down)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && this->_vy == 0)
 	{
 		this->_sprite.setTexture(this->_textures[5]);
-		this->_vy = -20.0f;
+		this->_vy = -25.0f;
 	}
-	if (this->_vy != 0)
-	{
+	this->_vy += 1.0001f;
+	if (down == false && this->_vy < 0)
 		this->_pos.y += this->_vy;
+	else if (down == true && this->_vy < 0)
+	{
+		this->_pos.y -= this->_vy;
+		this->_vy = 0.0001f;
+	}
+	else if (down == false && this->_vy > 0)
+		this->_pos.y += this->_vy;
+	else if (down == true && this->_vy > 0)
+	{
+		this->_pos.y -= this->_vy;
+		this->_vy = 0;
+	}
+	else if (down == false && this->_vy == 0)
+	{
 		this->_vy += 1.01f;
-		if (this->_pos.y >= this->_window->getSize().y - 180)
-		{
-			this->_vy = 0;
-			this->_pos.y = this->_window->getSize().y - 180;
-			this->_sprite.setTexture(this->_textures[0]);
-		}
+		this->_pos.y += this->_vy;
 	}
 }
