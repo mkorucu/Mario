@@ -1,10 +1,10 @@
-#include "Mario.h"
-
+#include "main.h"
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 Mario::Mario(sf::RenderWindow *window) : Object(window)
 {
-	sf::Vector2f pos;
-	pos.x = 0;
-	pos.y = (float)window->getSize().x - 180;
+	this->_pos.x = 330;
+	this->_pos.y = (float)window->getSize().x - 180;
 	this->_vx = 5.0f;
 	this->_vy = 5.0f;
 	this->_textures[0].loadFromFile("../assets/mario1.png");
@@ -15,19 +15,39 @@ Mario::Mario(sf::RenderWindow *window) : Object(window)
 	this->_textures[5].loadFromFile("../assets/mario6.png");
 	this->_textures[6].loadFromFile("../assets/mario7.png");
 	this->_sprite.setTexture(this->_textures[0]);
-	this->setPosition(pos);
+	this->_sprite.setPosition(this->_pos);
+	this->_heading = LEFT;
 }
 
 void	Mario::move()
 {
-	sf::Vector2f pos = this->_pos;
+	float	a = 1;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		
-        pos.x -= this->_vx;
+		if (this->_heading == RIGHT)
+		{
+			this->_sprite.scale(-1.f, 1.f);
+			this->_pos.x -= this->_sprite.getGlobalBounds().width;
+			this->_heading = LEFT;
+		}
+		else
+			this->_pos.x -= this->_vx;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		pos.x += this->_vx;
+	{
+		if (this->_heading == LEFT)
+		{
+			this->_sprite.scale(-1.f, 1.f);
+			this->_pos.x += this->_sprite.getGlobalBounds().width;
+			this->_heading = RIGHT;
+		}
+		else
+			this->_pos.x += this->_vx;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		pos.y -= this->_vy;
+		this->_pos.y -= this->_vy;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		this->_pos.y += this->_vy;
+	this->setPosition(this->_pos);
+	this->_window->draw(this->_sprite);
 }

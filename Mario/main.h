@@ -6,3 +6,5 @@
 #include "Mario.h"
 #include "Object.h"
 
+#define LEFT	0
+#define RIGHT	1

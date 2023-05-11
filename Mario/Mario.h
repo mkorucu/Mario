@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "Object.h"
 class Mario : public Object
 {
 private:

@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "main.h"
 
 Game::Game(sf::RenderWindow& window)
 {
