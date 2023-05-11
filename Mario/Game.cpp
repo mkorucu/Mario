@@ -60,6 +60,8 @@ bool Game::onFloor(Object *obj)
     for(int i = 0; i < 4; i++)
         if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_pipes[i].getGlobalBounds())))
             {
+                if (obj->boundingBox().width == 66)     //turtle i pipe ile intersect engellemesini kaldir !
+                    std::cout << "test "<< std::endl;
                 std::cout << "intersects pipe " << i << std::endl;
                 return true;
             }

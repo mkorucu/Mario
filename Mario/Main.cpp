@@ -6,6 +6,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
     Game    game(window);
     Object* objects = new Mario(&window);
+    Object* turtle = new Turtle(&window);
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -15,6 +17,7 @@ int main()
         window.clear();
         game.drawBackground(window);
         objects->move();
+        turtle->move();
         objects->jump(game.onFloor(objects));
         window.display();
         sf::sleep(sf::milliseconds(10));
