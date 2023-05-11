@@ -1,16 +1,20 @@
+#include "main.h"
 #include "Game.h"
 
 Game::Game(sf::RenderWindow& window)
 {
     this->_speed = 10;
-    
+    this->setBackground(window);
+}
+
+void    Game::setBackground(sf::RenderWindow& window)
+{
+        
     if (!_floorTexture.loadFromFile("../assets/floor.png") || !_brickTexture.loadFromFile("../assets/brick.png")
         ||  !_pipesBackground[0].loadFromFile("../assets/pipes.png") || !_pipesBackground[1].loadFromFile("../assets/pipe.png"))
         return;
     this->_floor.setTexture(_floorTexture);
-    this->_floor.setPosition(0, (float)window.getSize().x - 92);
-
-
+    this->_floor.setPosition(0, (float)window.getSize().x - 93);
     for (int i = 0; i < 7; i++)
     {
         this->_brick[i].setTexture(_brickTexture);
@@ -42,24 +46,35 @@ Game::Game(sf::RenderWindow& window)
     this->_pipes[2].setPosition(130, (float)window.getSize().y - 166);
     this->_pipes[3].setTexture(this->_pipesBackground[1]);
     this->_pipes[3].setPosition((float)window.getSize().x - 130, (float)window.getSize().y - 166);
+
 }
 
-void	Game::drawBackground(sf::RenderWindow& window)
+bool Game::onFloor(Object *obj)
 {
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
+    for(int i = 0; i < 7; i++)
+        if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_brick[i].getGlobalBounds())))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            std::cout << "intersects brick " << i << std::endl;
+	        return true;
         }
-        window.clear();
-        for (int i = 0; i < 7; i++)
-            window.draw(this->_brick[i]);
-        for (int i = 0; i < 4; i++)
-            window.draw(this->_pipes[i]);
-        window.draw(this->_floor);
-        window.display();
-    }
+    for(int i = 0; i < 4; i++)
+        if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_pipes[i].getGlobalBounds())))
+            {
+                std::cout << "intersects pipe " << i << std::endl;
+                return true;
+            }
+        if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_floor.getGlobalBounds())))
+        {
+            std::cout << "intersects floor" << std::endl;
+            return (true);
+        }
+    return (false);
+}
+void Game::drawBackground(sf::RenderWindow &window)
+{
+    for (int i = 0; i < 7; i++)
+        window.draw(this->_brick[i]);
+    for (int i = 0; i < 4; i++)
+        window.draw(this->_pipes[i]);
+    window.draw(this->_floor);
 }

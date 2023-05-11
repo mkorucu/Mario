@@ -1,3 +1,4 @@
+#include "main.h"
 #include "Object.h"
 
 Object::Object(sf::RenderWindow* window)
@@ -8,6 +9,7 @@ Object::Object(sf::RenderWindow* window)
 void	Object::setPosition(sf::Vector2f pos)
 {
 	this->_pos = pos;
+    this->_sprite.setPosition(pos);
 }
 
 sf::Vector2f Object::getPosition()
@@ -18,17 +20,10 @@ sf::Vector2f Object::getPosition()
 sf::IntRect Object::boundingBox()
 {
 	sf::IntRect bounds;
-    
-    sf::FloatRect localBounds = this->_sprite.getGlobalBounds();
-    
+    sf::FloatRect localBounds = this->_sprite.getGlobalBounds();    
     bounds.left = static_cast<int>(localBounds.left);
     bounds.top = static_cast<int>(localBounds.top);
     bounds.width = static_cast<int>(localBounds.width);
     bounds.height = static_cast<int>(localBounds.height);
     return bounds;
-}
-
-void    Object::draw(sf::RenderWindow& window)
-{
-
 }
