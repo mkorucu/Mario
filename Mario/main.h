@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Mario.h"
 #include "Object.h"
+#include "Turtle.h"
 
 #define NONE	0
 #define UP		0
