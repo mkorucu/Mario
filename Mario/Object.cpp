@@ -27,3 +27,8 @@ sf::IntRect Object::boundingBox()
     bounds.height = static_cast<int>(localBounds.height);
     return bounds;
 }
+
+sf::Sprite Object::getSprite()
+{
+    return this->_sprite;
+}

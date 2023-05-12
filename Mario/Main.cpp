@@ -5,8 +5,9 @@ int main()
     sf::err().rdbuf(NULL);
     sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
     Game    game(window);
-    Object* objects = new Mario(&window);
-    Object* turtle = new Turtle(&window);
+    Mario* objects = new Mario(&window);
+    Turtle* turtle = new Turtle(&window);
+    int test = 0;
 
     while (window.isOpen())
     {
@@ -20,6 +21,7 @@ int main()
         objects->move();
         objects->jump(game.onFloor(objects));
         turtle->jump(game.onFloor(turtle));
+        game.checkCollusion(turtle, objects, test);
         window.display();
         sf::sleep(sf::milliseconds(10));
     }

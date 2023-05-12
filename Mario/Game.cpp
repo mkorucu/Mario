@@ -72,6 +72,7 @@ bool Game::onFloor(Object *obj)
         }
     return (false);
 }
+
 void Game::drawBackground(sf::RenderWindow &window)
 {
     sf::RenderStates    states;
@@ -82,4 +83,49 @@ void Game::drawBackground(sf::RenderWindow &window)
     for (int i = 0; i < 4; i++)
         window.draw(this->_pipes[i],states);
     window.draw(this->_floor);
+}
+
+bool Game::checkCollusion(Turtle* t, Mario* m, int& side)
+{
+    if (t->getSprite().getGlobalBounds().intersects(m->getSprite().getGlobalBounds()))
+    {
+        sf::FloatRect intersection;
+        if (t->getSprite().getGlobalBounds().intersects(m->getSprite().getGlobalBounds(), intersection))
+        {
+            float overlap_left = intersection.left - std::max(t->getSprite().getGlobalBounds().left, m->getSprite().getGlobalBounds().left);
+            float overlap_top = intersection.top - std::max(t->getSprite().getGlobalBounds().top, m->getSprite().getGlobalBounds().top);
+            float overlap_right = std::min(t->getSprite().getGlobalBounds().left + t->getSprite().getGlobalBounds().width, m->getSprite().getGlobalBounds().left + m->getSprite().getGlobalBounds().width) - intersection.left - intersection.width;
+            float overlap_bottom = std::min(t->getSprite().getGlobalBounds().top + t->getSprite().getGlobalBounds().height, m->getSprite().getGlobalBounds().top + m->getSprite().getGlobalBounds().height) - intersection.top - intersection.height;
+
+            if (overlap_left < overlap_right && overlap_left < overlap_top && overlap_left < overlap_bottom)
+            {
+                m->fall();
+                // Left side of sprite1 hit
+                std::cout << "Left side of sprite1 hit" << std::endl;
+                return true;
+            }
+            else if (overlap_right < overlap_left && overlap_right < overlap_top && overlap_right < overlap_bottom)
+            {
+                m->fall();
+                // Right side of sprite1 hit
+                std::cout << "Right side of sprite1 hit" << std::endl;
+                return true;
+            }
+            else if (overlap_top < overlap_left && overlap_top < overlap_right && overlap_top < overlap_bottom)
+            {
+                t->fall();
+                // Top of sprite1 hit
+                std::cout << "Top of sprite1 hit" << std::endl;
+                return true;
+            }
+            else if (overlap_bottom < overlap_left && overlap_bottom < overlap_right && overlap_bottom < overlap_top)
+            {
+                m->fall();
+                // Bottom of sprite1 hit
+                std::cout << "Bottom of sprite1 hit" << std::endl;
+                return true;
+            }
+        }
+    }
+    return false;
 }

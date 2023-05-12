@@ -89,3 +89,7 @@ void	Mario::jump(bool down)
 		this->_pos.y += this->_vy;
 	}
 }
+
+void Mario::fall(void)
+{
+}
