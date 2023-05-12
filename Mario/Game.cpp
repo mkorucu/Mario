@@ -51,6 +51,11 @@ void    Game::setBackground(sf::RenderWindow& window)
 
 bool Game::onFloor(Object *obj)
 {
+    if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_floor.getGlobalBounds())))
+    {
+        std::cout << "intersects floor" << std::endl;
+        return (true);
+    }
     for(int i = 0; i < 7; i++)
         if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_brick[i].getGlobalBounds())))
         {
@@ -59,24 +64,22 @@ bool Game::onFloor(Object *obj)
         }
     for(int i = 0; i < 4; i++)
         if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_pipes[i].getGlobalBounds())))
-            {
-                if (obj->boundingBox().width == 66)     //turtle i pipe ile intersect engellemesini kaldir !
-                    std::cout << "test "<< std::endl;
-                std::cout << "intersects pipe " << i << std::endl;
-                return true;
-            }
-        if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_floor.getGlobalBounds())))
         {
-            std::cout << "intersects floor" << std::endl;
-            return (true);
+            if (obj->boundingBox().width == 68)     //turtle i pipe ile intersect engellemesini kaldir !
+                return false;                       //turtle pipe a degmesi engellendi
+            std::cout << "intersects pipe " << i << std::endl;
+            return true;
         }
     return (false);
 }
 void Game::drawBackground(sf::RenderWindow &window)
 {
+    sf::RenderStates    states;
+    states.blendMode = sf::BlendMode(sf::BlendMode::SrcAlpha, sf::BlendMode::OneMinusSrcAlpha);
+
     for (int i = 0; i < 7; i++)
         window.draw(this->_brick[i]);
     for (int i = 0; i < 4; i++)
-        window.draw(this->_pipes[i]);
+        window.draw(this->_pipes[i],states);
     window.draw(this->_floor);
 }

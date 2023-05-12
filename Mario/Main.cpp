@@ -15,10 +15,11 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         window.clear();
+        turtle->move();
         game.drawBackground(window);
         objects->move();
-        turtle->move();
         objects->jump(game.onFloor(objects));
+        turtle->jump(game.onFloor(turtle));
         window.display();
         sf::sleep(sf::milliseconds(10));
     }
