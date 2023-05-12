@@ -8,7 +8,7 @@ private:
 	float	_vy;
 public:
 	Mario(sf::RenderWindow* window);
-	void	move(bool down);
+	void	move();
 	void	jump(bool down);
 	void	fall(void);
 };

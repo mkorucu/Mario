@@ -19,7 +19,7 @@ Mario::Mario(sf::RenderWindow *window) : Object(window)
 	this->_heading = LEFT;
 }
 
-void	Mario::move(bool down)
+void	Mario::move()
 {
 	static	int	walking = 0;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
