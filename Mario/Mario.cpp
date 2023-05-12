@@ -22,7 +22,7 @@ Mario::Mario(sf::RenderWindow *window) : Object(window)
 void	Mario::move(bool down)
 {
 	static	int	walking = 0;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		this->_vx = 5;
 		if (this->_heading == RIGHT)
@@ -31,8 +31,10 @@ void	Mario::move(bool down)
 			this->_pos.x -= this->_sprite.getGlobalBounds().width;
 			this->_heading = LEFT;
 		}
-		else if (this->_pos.x > 0 && (this->_vy != 0 || down == true))
+		else if (this->_vy != 0 || down == true && this->_pos.x > 0)
 			this->_pos.x -= this->_vx;
+		if (this->_pos.x <= 0)
+			this->_pos.x = 0;
 		if (this->_vy == 0)
 			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
 	}
@@ -45,7 +47,7 @@ void	Mario::move(bool down)
 			this->_pos.x += this->_sprite.getGlobalBounds().width;
 			this->_heading = RIGHT;
 		}
-		else if (this->_pos.x < this->_window->getSize().x && (this->_vy != 0 || down == true))
+		else if (this->_vy != 0 || down == true)
 			this->_pos.x += this->_vx;
 		if (this->_vy == 0)
 			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
@@ -59,6 +61,8 @@ void	Mario::move(bool down)
 	}
 	if (this->_vx == 0)
 		this->_sprite.setTexture(this->_textures[0]);
+	if (this->_pos.x > this->_window->getSize().x)
+		this->_pos.x = this->_window->getSize().x;
 	this->setPosition(this->_pos);
 	this->_window->draw(this->_sprite);
 }

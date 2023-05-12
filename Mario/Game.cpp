@@ -71,11 +71,12 @@ bool Game::onFloor(Object *obj)
 	return (false);
 }
 
-// side    checkIntersect(sf::Sprite *obj, sf::Sprite &asset)
+// side    checkIntersect(Object *obj, sf::Sprite &asset)
 // {
 // 	sf::Vector2f brickCenter(asset.getGlobalBounds().left + asset.getGlobalBounds().width / 2, asset.getGlobalBounds().top + asset.getGlobalBounds().height / 2);
-// 	sf::Vector2f objCenter(obj->getGlobalBounds().left + obj->getGlobalBounds().width / 2, obj->getGlobalBounds().top + obj->getGlobalBounds().height / 2);
-
+// 	sf::Vector2f objCenter(obj->boundingBox().left + obj->boundingBox().width / 2, obj->boundingBox().top + obj->boundingBox().height / 2);
+// 	if (obj->boundingBox().height + obj->boundingBox().top == asset.getGlobalBounds().top || obj->boundingBox().height + obj->boundingBox().top + p== asset.getGlobalBounds().top)
+// 		return (up);
 
 // }
 
@@ -85,7 +86,7 @@ bool Game::onFloor(Object *obj)
 // 	{
 // 		if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_brick[i].getGlobalBounds())))
 // 		{
-// 			checkIntersect(obj, &this->_brick[i]);
+// 			checkIntersect(obj, this->_brick[i]);
 
 // 		}
 
