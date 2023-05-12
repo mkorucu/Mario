@@ -71,27 +71,25 @@ bool Game::onFloor(Object *obj)
 	return (false);
 }
 
-// side    checkIntersect(Object *obj, sf::Sprite &asset)
+// int    checkIntersect(Object *obj, sf::Sprite &asset)
 // {
-// 	sf::Vector2f brickCenter(asset.getGlobalBounds().left + asset.getGlobalBounds().width / 2, asset.getGlobalBounds().top + asset.getGlobalBounds().height / 2);
-// 	sf::Vector2f objCenter(obj->boundingBox().left + obj->boundingBox().width / 2, obj->boundingBox().top + obj->boundingBox().height / 2);
-// 	if (obj->boundingBox().height + obj->boundingBox().top == asset.getGlobalBounds().top || obj->boundingBox().height + obj->boundingBox().top + p== asset.getGlobalBounds().top)
-// 		return (up);
-
+// 	if (obj->boundingBox().left < asset.getGlobalBounds().left && obj->boundingBox().left + obj->boundingBox().width > asset.getGlobalBounds().left)
+// 		if (obj->boundingBox().top < asset.getGlobalBounds().top + asset.getGlobalBounds().height && obj->boundingBox().top + obj->boundingBox().height > asset.getGlobalBounds().top)
+// 			return (LEFT);
+// 	else
+// 		return (5);
+// 	//if (obj->boundingBox().left < asset.getGlobalBounds().left + asset.getGlobalBounds().width && obj->boundingBox().left + obj->boundingBox().width > asset.getGlobalBounds().left)
 // }
 
-// side Game::intersecting(Object *obj)
+// int Game::intersecting(Object *obj)
 // {
 // 	for (int i = 0; i < 7; i++)
-// 	{
 // 		if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_brick[i].getGlobalBounds())))
-// 		{
-// 			checkIntersect(obj, this->_brick[i]);
-
-// 		}
-
-// 	}
-// 	return side();
+// 			return (checkIntersect(obj, this->_brick[i]));
+// 	for (int i = 0; i < 4; i++)
+// 		if (obj->boundingBox().intersects(static_cast<sf::IntRect>(this->_pipes[i].getGlobalBounds())))
+// 			return (checkIntersect(obj, this->_pipes[i]));
+// 	return (NONE);
 // }
 void Game::drawBackground(sf::RenderWindow &window)
 {

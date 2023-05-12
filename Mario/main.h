@@ -6,13 +6,8 @@
 #include "Mario.h"
 #include "Object.h"
 
-enum class	side
-{
-	None,
-	Right,
-    Top,
-    Bottom
-};
-
+#define NONE	0
+#define UP		0
+#define DOWN	0
 #define LEFT	-1
 #define RIGHT	1
