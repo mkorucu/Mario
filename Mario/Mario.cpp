@@ -36,8 +36,6 @@ void	Mario::move()
 		}
 		else
 			this->_pos.x -= this->_vx;
-		if (this->_pos.x <= 0)
-			this->_pos.x = 0;
 		if (this->_vy == 0)
 			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
 	}
@@ -51,12 +49,10 @@ void	Mario::move()
 			this->_heading = RIGHT;
 			return ;
 		}
-		if (this->_vy == 0 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-			this->_sprite.setTexture(this->_textures[0]);
-		if (this->_vy == 0 && (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-			this->_sprite.setTexture(this->_textures[0]);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			this->_pos.y += this->_vy;
+		else
+			this->_pos.x += this->_vx;
+		if (this->_vy == 0)
+			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5 + 1]);
 	}
 	if (this->_vy == 0  && this->_vx != 0 && ((!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) 
 	|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))))
@@ -78,18 +74,24 @@ void	Mario::move()
 
 void	Mario::jump(bool down)
 {
+	float	a = 1.0f;
+
+	if (this->isDead == true)
+	{
+		this->_pos.y += this->_vy;
+		return;
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && this->_vy == 0)
 	{
 		this->_sprite.setTexture(this->_textures[5]);
 		this->_vy = -25.0f;
 	}
-	if (down == true && this->_vy == -25) // yerde, yükselecek;
+	this->_vy += 1.0001f;
+	if (down == false && this->_vy < 0)
 		this->_pos.y += this->_vy;
-	else if (down == false && this->_vy < 0) //havada, yükseliyor
-		this->_pos.y += this->_vy;
-	else if (down == true && this->_vy < 0) // havada, yükseliyor, çarptı
+	else if (down == true && this->_vy < 0)
 	{
-		this->_pos.x -= this->_vx * this->_heading;
 		this->_pos.y -= this->_vy;
 		this->_vy = 0.0001f;
 	}
@@ -105,8 +107,6 @@ void	Mario::jump(bool down)
 		this->_vy += 1.01f;
 		this->_pos.y += this->_vy;
 	}
-	if (this->_vy != 0)
-		this->_vy += 1.0001f;
 }
 
 void Mario::fall(void)
