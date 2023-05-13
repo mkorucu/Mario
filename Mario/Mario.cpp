@@ -68,6 +68,7 @@ void	Mario::move()
 	if (this->_pos.x <= 0)
 		this->_pos.x = 0;
 	this->setPosition(this->_pos);
+	this->_window->draw(this->_sprite);
 }
 
 
