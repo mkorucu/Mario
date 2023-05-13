@@ -28,7 +28,9 @@ sf::IntRect Object::boundingBox()
     return bounds;
 }
 
-sf::Sprite Object::getSprite()
+bool Object::getIsDead()
 {
-    return this->_sprite;
+    return this->isDead;
 }
+
+

@@ -15,7 +15,7 @@ public:
 	void	setPosition(sf::Vector2f pos);
 	sf::Vector2f getPosition();
 	sf::IntRect boundingBox();
-	sf::Sprite	getSprite();
+	bool	getIsDead();
 	virtual void move(void) = 0;
 	virtual void fall(void) = 0;
 	virtual void jump(bool down) = 0;

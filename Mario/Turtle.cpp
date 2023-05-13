@@ -68,7 +68,7 @@ void Turtle::move()
 	}
 	
 	this->setPosition(this->_pos);
-	std::cout << this->_pos.x << " " << this->_pos.y << "\n";
+	//std::cout << this->_pos.x << " " << this->_pos.y << "\n";
 	this->_window->draw(this->_sprite, states);
 }
 
