@@ -7,5 +7,8 @@
 #include "Object.h"
 #include "Turtle.h"
 
-#define LEFT	0
+#define NONE	0
+#define UP		0
+#define DOWN	0
+#define LEFT	-1
 #define RIGHT	1
