@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &option2, sf::Window &window)
+void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &option2, sf::Text &option3, sf::Window &window)
 {
 	if (!font.loadFromFile("../assets/font.ttf"))
 		return ;
@@ -14,13 +14,18 @@ void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &opti
 
     option1.setFont(font);
     option1.setCharacterSize(48);
-    option1.setString("Continue game");
+    option1.setString("Continue Game");
     option1.setPosition(window.getSize().x / 2 - option1.getLocalBounds().width / 2, 150);
 
-    option2.setFont(font);
+	option2.setFont(font);
     option2.setCharacterSize(48);
-    option2.setString("Exit");
-    option2.setPosition(window.getSize().x / 2 - option2.getLocalBounds().width / 2, 200);
+    option2.setString("New Game");
+    option2.setPosition(window.getSize().x / 2 - option2.getLocalBounds().width / 2, 250);
+
+    option3.setFont(font);
+    option3.setCharacterSize(48);
+    option3.setString("Exit");
+    option3.setPosition(window.getSize().x / 2 - option2.getLocalBounds().width / 2, 350);
 }
 
 int	setKeys(sf::Event &event, int &select, int &state)
@@ -28,13 +33,13 @@ int	setKeys(sf::Event &event, int &select, int &state)
 	switch (event.key.code)
 	{
 		case sf::Keyboard::Up:
-			select = 1;
-			std::cout << "up" << std::endl;
+			if (--select < 0)
+				select = 2;
 			break;
 
 		case sf::Keyboard::Down:
-			select = 2;
-			std::cout << "down" << std::endl;
+			if (++select > 2)
+				select = 0;
 			break;
 		case sf::Keyboard::Escape:
 			state = 0;
@@ -42,33 +47,37 @@ int	setKeys(sf::Event &event, int &select, int &state)
 		case sf::Keyboard::Return:
 			switch (select)
 			{
-				case 1:
-					std::cout << "New Game Selected" << std::endl;
+				case 0:
 					state = 1;
 					break;
-				case 2:
+				case 1:
 					state = 2;
-					std::cout << "Exit selected" << std::endl;
+					return (0);
+					break;
+				case 2:
+					state = 0;
 					return (1);
 					break;
 			}
+			break;
 	}
 	return (0);
 }
 int main()
 {
-	int	turtleCount = 1, sayac = 0;
+	int	turtleCount = 1, sayac = 1;
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
-	sf::Text	title, option1, option2;
-	int	select = 1, state = 0, test = 0;
+	sf::Text	title, option1, option2, option3;
+	int	select = 0, state = 0;
 	Game    game(window);
 	game.AddObject(new Mario(&window));
     game.AddObject(new Turtle(&window));
+	std::cout << "first count: " << game.ObjectCount() << std::endl;
 	ScoreBoard board(&window);
 
-	setTexts(font, title, option1, option2, window);
+	setTexts(font, title, option1, option2, option3, window);
 	
 	while (window.isOpen())
 	{
@@ -90,14 +99,20 @@ int main()
 		window.clear();
 		switch (select)
         {
-            case 1:
+            case 0:
                 option1.setFillColor(sf::Color::Yellow);
                 option2.setFillColor(sf::Color::White);
+				option3.setFillColor(sf::Color::White);
                 break;
-
-            case 2:
+            case 1:
                 option1.setFillColor(sf::Color::White);
                 option2.setFillColor(sf::Color::Yellow);
+				option3.setFillColor(sf::Color::White);
+                break;
+			case 2:
+				option1.setFillColor(sf::Color::White);
+                option2.setFillColor(sf::Color::White);
+				option3.setFillColor(sf::Color::Yellow);
                 break;
         }
 		if (state == 0)
@@ -105,8 +120,23 @@ int main()
 			window.draw(title);
 			window.draw(option1);
 			window.draw(option2);
+			window.draw(option3);
 		}
-		else if (state == 1)
+		if (state == 2)
+		{
+			std::cout << " count before deletion: " << game.ObjectCount() << std::endl;
+			for (int i = 0; i <= turtleCount; i++)
+				game.DeleteObject(game.getObject(0));
+			std::cout << " count after deletion: " << game.ObjectCount() << std::endl;
+			game.AddObject(new Mario(&window));
+			game.AddObject(new Turtle(&window));
+			std::cout << " count after after deletion: " << game.ObjectCount() << std::endl;
+			board.setLives(board.getLives() - 3);
+			turtleCount = 1;
+			board.setScore(0);
+			state = 1;
+		}
+		if (state == 1)
 		{
 			if (game.getObject(0)->getIsDead() == true && game.getObject(0)->getPosition().y > 1150 && board.getLives() > 0)
 			{
@@ -121,21 +151,19 @@ int main()
 			}
 			game.getObject(0)->move();
 			game.getObject(0)->jump(game.onFloor(game.getObject(0)));
-			for (int i = 1; i < turtleCount; i++)
+			for (int i = 1; i <= turtleCount; i++)
 			{
 				game.getObject(i)->move();
 				game.getObject(i)->jump(game.onFloor(game.getObject(i)));
-				game.checkCollusion(static_cast<Turtle*>(game.getObject(i)), static_cast<Mario*>(game.getObject(0)), test);
+				game.checkCollusion(static_cast<Turtle*>(game.getObject(i)), static_cast<Mario*>(game.getObject(0)), state);
 				if (game.getObject(i)->getIsDead() == true && game.getObject(i)->getPosition().y > 1150)
 				{
-					test = 100;
 					game.DeleteObject(game.getObject(i));
 					game.AddObject(new Turtle(&window));
 				}
 			}
 			game.drawBackground(window);
-			board.setScore(test);
-			test = 0;
+			board.setScore(100);
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(10));

@@ -8,6 +8,7 @@ private:
 	float	_vy;
 public:
 	Mario(sf::RenderWindow* window);
+	void	CornerChecks();
 	void	move();
 	void	jump(bool down);
 	void	fall(void);

@@ -20,6 +20,18 @@ Mario::Mario(sf::RenderWindow *window) : Object(window)
 	this->isDead = false;
 }
 
+void Mario::CornerChecks()
+{
+	if (this->_pos.x > this->_window->getSize().x)
+		this->_pos.x = this->_window->getSize().x;
+	if (this->_pos.x <= 0)
+		this->_pos.x = 0;
+	if (this->_pos.y + this->boundingBox().height >= this->_window->getSize().y - 93)
+		this->_pos.y = this->_window->getSize().y - this->boundingBox().height;
+	if (this->_pos.y <= 0)
+		this->_pos.y = 0;
+}
+
 void	Mario::move()
 {
 	static	int	walking = 0;
@@ -64,10 +76,6 @@ void	Mario::move()
 	}
 	if (this->_vx == 0 && this->_vy == 0)
 		this->_sprite.setTexture(this->_textures[0]);
-	if (this->_pos.x > this->_window->getSize().x)
-		this->_pos.x = this->_window->getSize().x;
-	if (this->_pos.x <= 0)
-		this->_pos.x = 0;
 	this->setPosition(this->_pos);
 	this->_window->draw(this->_sprite);
 }
