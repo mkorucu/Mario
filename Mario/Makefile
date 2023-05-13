@@ -1,5 +1,5 @@
 NAME = mario
-SRC	= Main.cpp Game.cpp Object.cpp Mario.cpp Turtle.cpp ScoreBoard.cpp
+SRC	= Main.cpp Game.cpp Object.cpp Mario.cpp Turtle.cpp ScoreBoard.cpp ObjectForList.cpp ObjectNode.cpp
 OBJ = $(SRC:.cpp=.o)
 RM = rm -rf
 CC = g++

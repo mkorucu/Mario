@@ -57,20 +57,28 @@ int	setKeys(sf::Event &event, int &select, int &state)
 }
 int main()
 {
+	int	turtleCount = 1, sayac = 0;
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
 	sf::Text	title, option1, option2;
 	int	select = 1, state = 0, test = 0;
 	Game    game(window);
-	Mario* objects = new Mario(&window);
-    Turtle* turtle = new Turtle(&window);
+	ObjectForList *list = new ObjectForList();
+	list->AddObject(new Mario(&window));
+    list->AddObject(new Turtle(&window));
 	ScoreBoard board(&window);
 
 	setTexts(font, title, option1, option2, window);
 	
 	while (window.isOpen())
 	{
+		if (sayac % 500 == 0)
+		{
+			sayac = 0;
+			turtleCount++;
+			list->AddObject(new Turtle(&window));
+		}
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -121,15 +129,21 @@ int main()
 			}
 			turtle->move();
 			game.drawBackground(window);
-			objects->move();
-			objects->jump(game.onFloor(objects));
-			turtle->jump(game.onFloor(turtle));
+			list->getObject(0)->move();
+			list->getObject(0)->jump(game.onFloor(list->getObject(0)));
+			for (int i = 1; i < turtleCount; i++)
+			{
+				list->getObject(i)->move();
+				list->getObject(i)->jump(game.onFloor(list->getObject(i)));
+				game.checkCollusion(static_cast<Turtle*>(list->getObject(i)), static_cast<Mario*>(list->getObject(0)), test);
+			}
 			board.setScore(test);
 			game.checkCollusion(turtle, objects, test);
 			test = 0;
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(10));
+		sayac++;
 	}
 	return 0;
 }

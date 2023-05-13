@@ -9,7 +9,7 @@ protected:
 	sf::RenderWindow* _window;
 	int	_state;
 	int	_heading;
-	bool	isDead = false;
+	bool	isDead;
 public:
 	Object(sf::RenderWindow* window);
 	void	setPosition(sf::Vector2f pos);
