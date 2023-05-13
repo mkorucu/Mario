@@ -57,20 +57,27 @@ int	setKeys(sf::Event &event, int &select, int &state)
 }
 int main()
 {
+	int	turtleCount = 1, sayac = 0;
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
 	sf::Text	title, option1, option2;
 	int	select = 1, state = 0, test = 0;
 	Game    game(window);
-	Mario* objects = new Mario(&window);
-    Turtle* turtle = new Turtle(&window);
+	game.AddObject(new Mario(&window));
+    game.AddObject(new Turtle(&window));
 	ScoreBoard board(&window);
 
 	setTexts(font, title, option1, option2, window);
 	
 	while (window.isOpen())
 	{
+		if (sayac % 500 == 0)
+		{
+			sayac = 0;
+			turtleCount++;
+			game.AddObject(new Turtle(&window));
+		}
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -101,35 +108,38 @@ int main()
 		}
 		else if (state == 1)
 		{
-			if (objects->getIsDead() == true && objects->getPosition().y > 1150 && board.getLives() > 0)
+			if (game.getObject(0)->getIsDead() == true && game.getObject(0)->getPosition().y > 1150 && board.getLives() > 0)
 			{
 				board.setLives(1);
-				delete objects;
-				Mario* objects = new Mario(&window);
+				delete game.getObject(0);
+				game.AddObject(new Mario(&window));
 			}
-			else if (objects->getIsDead() == true && board.getLives() == 0)
+			else if (game.getObject(0)->getIsDead() == true && board.getLives() == 0)
 			{
 				std::cout << "GAME OVER !" << std::endl;
 				state = 0;
 			}
-
-			if (turtle->getIsDead() == true && turtle->getPosition().y > 1150)
-			{
-				test = 100;
-				delete turtle;
-				Turtle* turtle = new Turtle(&window);
-			}
-			turtle->move();
 			game.drawBackground(window);
-			objects->move();
-			objects->jump(game.onFloor(objects));
-			turtle->jump(game.onFloor(turtle));
+			game.getObject(0)->move();
+			game.getObject(0)->jump(game.onFloor(game.getObject(0)));
+			for (int i = 1; i < turtleCount; i++)
+			{
+				game.getObject(i)->move();
+				game.getObject(i)->jump(game.onFloor(game.getObject(i)));
+				game.checkCollusion(static_cast<Turtle*>(game.getObject(i)), static_cast<Mario*>(game.getObject(0)), test);
+				if (game.getObject(i)->getIsDead() == true && game.getObject(i)->getPosition().y > 1150)
+				{
+					test = 100;
+					game.DeleteObject(game.getObject(i));
+					game.AddObject(new Turtle(&window));
+				}
+			}
 			board.setScore(test);
-			game.checkCollusion(turtle, objects, test);
 			test = 0;
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(10));
+		sayac++;
 	}
 	return 0;
 }

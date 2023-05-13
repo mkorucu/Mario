@@ -8,6 +8,7 @@
 #include "Object.h"
 #include "Turtle.h"
 #include "ScoreBoard.h"
+#include "ObjectNode.h"
 
 #define NONE	0
 #define UP		0

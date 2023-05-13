@@ -3,11 +3,13 @@
 #include "Object.h"
 #include "Turtle.h"
 #include "Mario.h"
+#include "ObjectNode.h"
 class Game
 {
 private:
 	int	_speed;
 	unsigned long	time;
+	ObjectNode	*_head;
 	sf::Texture _floorTexture;
 	sf::Texture _brickTexture;
 	sf::Texture	_pipesBackground[2];
@@ -21,6 +23,9 @@ public:
 	void	setBackground(sf::RenderWindow& window);
 	bool	onFloor(Object *obj);
 	bool	checkCollusion(Turtle* t, Mario* m, int& side);
+	void	AddObject(Object *obj);
+	void	DeleteObject(Object *obj);
+	Object *getObject(int i);
 };
 
 

@@ -3,6 +3,7 @@
 
 Game::Game(sf::RenderWindow& window)
 {
+    this->_head = 0;
 	this->_speed = 10;
 	this->setBackground(window);
 }
@@ -106,4 +107,57 @@ bool Game::checkCollusion(Turtle* t, Mario* m, int& side)
         }
     }
     return false;
+}
+
+void    Game::AddObject(Object *obj)
+{
+	ObjectNode *newNode = new ObjectNode(obj);
+	if (this->_head == NULL)
+	{
+		this->_head = newNode;
+	}
+	else if (this->_head->_obj->boundingBox().width == 66)
+	{
+		ObjectNode *curr = this->_head;
+		while(curr->_next != nullptr)
+			curr = curr->_next;
+		curr->_next = newNode;
+	}
+	else if(this->_head->_obj->boundingBox().width == 68)
+	{
+		newNode->_next = this->_head;
+		this->_head = newNode;
+	}
+}
+
+void Game::DeleteObject(Object *obj)
+{
+	ObjectNode *curr;
+	ObjectNode *curr2;
+	if (obj->boundingBox().width == 66)
+	{
+		curr = this->_head;
+		_head = _head->_next;
+		delete curr->_obj;
+		delete curr;
+	}
+	else if (obj->boundingBox().width == 68)
+	{
+		curr = this->_head;
+		curr2->_obj = obj;
+		if (curr->_next->_obj == curr2->_obj)
+		{
+			curr->_next = curr->_next->_next;
+			delete curr2->_obj;
+			delete curr2;
+		}	
+	}
+}
+
+Object *Game::getObject(int i)
+{
+	ObjectNode *curr = this->_head;
+	for(int x = 0; x < i; x++)
+		curr = curr->_next;
+	return curr->_obj;
 }

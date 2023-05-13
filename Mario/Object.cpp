@@ -4,6 +4,7 @@
 Object::Object(sf::RenderWindow* window)
 {
 	this->_window = window;
+    this->isDead = false;
 }
 
 void	Object::setPosition(sf::Vector2f pos)
