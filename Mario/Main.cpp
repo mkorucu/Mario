@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-void	setMenu(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &option2, sf::Window &window)
+void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &option2, sf::Window &window)
 {
 	if (!font.loadFromFile("../assets/font.ttf"))
 		return ;
@@ -23,8 +23,40 @@ void	setMenu(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &optio
     option2.setPosition(window.getSize().x / 2 - option2.getLocalBounds().width / 2, 200);
 }
 
+int	setKeys(sf::Event &event, int &select, int &state)
+{
+	switch (event.key.code)
+	{
+		case sf::Keyboard::Up:
+			select = 1;
+			std::cout << "up" << std::endl;
+			break;
+
+		case sf::Keyboard::Down:
+			select = 2;
+			std::cout << "down" << std::endl;
+			break;
+		case sf::Keyboard::Escape:
+			state = 0;
+			break;
+		case sf::Keyboard::Return:
+			switch (select)
+			{
+				case 1:
+					std::cout << "New Game Selected" << std::endl;
+					state = 1;
+					break;
+				case 2:
+					state = 2;
+					std::cout << "Exit selected" << std::endl;
+					return (1);
+					break;
+			}
+	}
+	return (0);
+}
 int main()
-{  
+{
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
@@ -34,7 +66,7 @@ int main()
 	Object* objects = new Mario(&window);
 	Object* turtle = new Turtle(&window);
 
-	setMenu(font, title, option1, option2, window);
+	setTexts(font, title, option1, option2, window);
 	
 	while (window.isOpen())
 	{
@@ -44,36 +76,8 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 			if (event.type == sf::Event::KeyPressed)
-            {
-                switch (event.key.code)
-                {
-                    case sf::Keyboard::Up:
-						select = 1;
-						std::cout << "up" << std::endl;
-                        break;
-
-                    case sf::Keyboard::Down:
-                        select = 2;
-						std::cout << "down" << std::endl;
-                        break;
-					case sf::Keyboard::Escape:
-						state = 0;
-						break;
-                    case sf::Keyboard::Return:
-						switch (select)
-						{
-							case 1:
-								std::cout << "New Game Selected" << std::endl;
-								state = 1;
-								break;
-							case 2:
-								state = 2;
-                            	std::cout << "Exit selected" << std::endl;
-								return (0);
-								break;
-						}
-                }
-            }
+				if (setKeys(event, select, state))
+					return (1);
 		}
 		window.clear();
 		switch (select)
