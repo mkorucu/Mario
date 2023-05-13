@@ -64,7 +64,7 @@ int main()
 	int	select = 1, state = 0;
 	Game    game(window);
 	Object* objects = new Mario(&window);
-	Object* turtle = new Turtle(&window);
+    Turtle* turtle = new Turtle(&window);
 
 	setTexts(font, title, option1, option2, window);
 	
@@ -110,4 +110,6 @@ int main()
 		sf::sleep(sf::milliseconds(10));
 	}
 	return 0;
+        board.setScore(test);
+        game.checkCollusion(turtle, objects, test);
 }
