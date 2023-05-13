@@ -70,10 +70,11 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
 	sf::Text	title, option1, option2, option3;
-	int	select = 0, state = 0, test = 0;
+	int	select = 0, state = 0;
 	Game    game(window);
 	game.AddObject(new Mario(&window));
     game.AddObject(new Turtle(&window));
+	std::cout << "first count: " << game.ObjectCount() << std::endl;
 	ScoreBoard board(&window);
 
 	setTexts(font, title, option1, option2, option3, window);
@@ -123,11 +124,15 @@ int main()
 		}
 		if (state == 2)
 		{
+			std::cout << " count before deletion: " << game.ObjectCount() << std::endl;
 			for (int i = 0; i <= turtleCount; i++)
 				game.DeleteObject(game.getObject(0));
+			std::cout << " count after deletion: " << game.ObjectCount() << std::endl;
 			game.AddObject(new Mario(&window));
 			game.AddObject(new Turtle(&window));
+			std::cout << " count after after deletion: " << game.ObjectCount() << std::endl;
 			board.setLives(board.getLives() - 3);
+			turtleCount = 1;
 			board.setScore(0);
 			state = 1;
 		}
@@ -150,17 +155,15 @@ int main()
 			{
 				game.getObject(i)->move();
 				game.getObject(i)->jump(game.onFloor(game.getObject(i)));
-				game.checkCollusion(static_cast<Turtle*>(game.getObject(i)), static_cast<Mario*>(game.getObject(0)), test);
+				game.checkCollusion(static_cast<Turtle*>(game.getObject(i)), static_cast<Mario*>(game.getObject(0)), state);
 				if (game.getObject(i)->getIsDead() == true && game.getObject(i)->getPosition().y > 1150)
 				{
-					test = 100;
 					game.DeleteObject(game.getObject(i));
 					game.AddObject(new Turtle(&window));
 				}
 			}
 			game.drawBackground(window);
-			board.setScore(test);
-			test = 0;
+			board.setScore(100);
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(10));

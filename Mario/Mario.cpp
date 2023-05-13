@@ -25,7 +25,7 @@ void Mario::CornerChecks()
 		this->_pos.x = this->_window->getSize().x;
 	if (this->_pos.x <= 0)
 		this->_pos.x = 0;
-	if (this->_pos.y + this->boundingBox().height >= this->_window->getSize().y)
+	if (this->_pos.y + this->boundingBox().height >= this->_window->getSize().y - 93)
 		this->_pos.y = this->_window->getSize().y - this->boundingBox().height;
 	if (this->_pos.y <= 0)
 		this->_pos.y = 0;

@@ -174,3 +174,14 @@ Object *Game::getObject(int i)
 	}
 	return curr->_obj;
 }
+
+int	Game::ObjectCount()
+{
+	ObjectNode* curr = this->_head;
+	for (int i = 0; ; i++)
+	{
+		if (curr == nullptr)
+			return (i);
+		curr = curr->_next;
+	}
+}		
