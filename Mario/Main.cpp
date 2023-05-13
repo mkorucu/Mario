@@ -61,10 +61,11 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
 	sf::Text	title, option1, option2;
-	int	select = 1, state = 0;
+	int	select = 1, state = 0, test = 0;
 	Game    game(window);
-	Object* objects = new Mario(&window);
+	Mario* objects = new Mario(&window);
     Turtle* turtle = new Turtle(&window);
+	ScoreBoard board(&window);
 
 	setTexts(font, title, option1, option2, window);
 	
@@ -105,11 +106,11 @@ int main()
 			objects->move();
 			objects->jump(game.onFloor(objects));
 			turtle->jump(game.onFloor(turtle));
+			board.setScore(test);
+			game.checkCollusion(turtle, objects, test);
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(10));
 	}
 	return 0;
-        board.setScore(test);
-        game.checkCollusion(turtle, objects, test);
 }
