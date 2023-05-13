@@ -85,7 +85,7 @@ void	Mario::jump(bool down)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && this->_vy == 0)
 	{
 		this->_sprite.setTexture(this->_textures[5]);
-		this->_vy = -25.0f;
+		this->_vy = -27.5f;
 	}
 	this->_vy += 1.0001f;
 	if (down == false && this->_vy < 0)

@@ -101,6 +101,24 @@ int main()
 		}
 		else if (state == 1)
 		{
+			if (objects->getIsDead() == true && objects->getPosition().y > 1150 && board.getLives() > 0)
+			{
+				board.setLives(1);
+				delete objects;
+				Mario* objects = new Mario(&window);
+			}
+			else if (objects->getIsDead() == true && board.getLives() == 0)
+			{
+				std::cout << "GAME OVER !" << std::endl;
+				state = 0;
+			}
+
+			if (turtle->getIsDead() == true && turtle->getPosition().y > 1150)
+			{
+				test = 100;
+				delete turtle;
+				Turtle* turtle = new Turtle(&window);
+			}
 			turtle->move();
 			game.drawBackground(window);
 			objects->move();
@@ -108,6 +126,7 @@ int main()
 			turtle->jump(game.onFloor(turtle));
 			board.setScore(test);
 			game.checkCollusion(turtle, objects, test);
+			test = 0;
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(10));
