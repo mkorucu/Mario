@@ -72,7 +72,7 @@ int main()
 	
 	while (window.isOpen())
 	{
-		if (sayac % 500 == 0)
+		if (sayac % 500 == 0 && turtleCount < 6)
 		{
 			sayac = 0;
 			turtleCount++;
@@ -111,7 +111,7 @@ int main()
 			if (game.getObject(0)->getIsDead() == true && game.getObject(0)->getPosition().y > 1150 && board.getLives() > 0)
 			{
 				board.setLives(1);
-				delete game.getObject(0);
+				game.DeleteObject(game.getObject(0));
 				game.AddObject(new Mario(&window));
 			}
 			else if (game.getObject(0)->getIsDead() == true && board.getLives() == 0)
@@ -119,7 +119,6 @@ int main()
 				std::cout << "GAME OVER !" << std::endl;
 				state = 0;
 			}
-			game.drawBackground(window);
 			game.getObject(0)->move();
 			game.getObject(0)->jump(game.onFloor(game.getObject(0)));
 			for (int i = 1; i < turtleCount; i++)
@@ -134,6 +133,7 @@ int main()
 					game.AddObject(new Turtle(&window));
 				}
 			}
+			game.drawBackground(window);
 			board.setScore(test);
 			test = 0;
 		}

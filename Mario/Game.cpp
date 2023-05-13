@@ -144,7 +144,11 @@ void Game::DeleteObject(Object *obj)
 	else if (obj->boundingBox().width == 68)
 	{
 		curr = this->_head;
-		curr2->_obj = obj;
+		while (curr->_next->_obj != obj)
+		{
+			curr = curr->_next;
+		}
+		curr2 = curr->_next;
 		if (curr->_next->_obj == curr2->_obj)
 		{
 			curr->_next = curr->_next->_next;

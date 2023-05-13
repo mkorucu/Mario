@@ -29,18 +29,18 @@ void Turtle::move()
 	{
 		if (this->_pos.x < 105 && this->_pos.y > 865)
 		{
-			this->_pos.x = this->_window->getSize().x - 110;
-			this->_pos.y = this->_window->getSize().y / 4 - 156;
+			this->_pos.x = (float)this->_window->getSize().x - 110;
+			this->_pos.y = this->_window->getSize().y / 4.0f - 156;
 		}
 
 		if (this->_pos.x > (this->_window->getSize().x - 105) && this->_pos.y > 865)
 		{
 			this->_pos.x = 110;
-			this->_pos.y = this->_window->getSize().y / 4 - 156;
+			this->_pos.y = this->_window->getSize().y / 4.0f - 156;
 		}
 
 		if (this->_vy == 0)
-			this->_vx = 2.99f;
+			this->_vx = 2.99f + ((walking / 1500.0f) * 0.25);
 
 		if (this->_heading == RIGHT && this->_pos.x <= (this->_window->getSize().x))
 		{
