@@ -16,6 +16,7 @@ Turtle::Turtle(sf::RenderWindow* window) : Object(window)
 	this->_sprite.setTexture(this->_textures[0]);
 	this->_sprite.setPosition(this->_pos);
 	this->_heading = RIGHT;
+	this->isDead = false;
 }
 
 void Turtle::move()
