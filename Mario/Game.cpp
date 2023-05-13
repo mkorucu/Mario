@@ -113,13 +113,9 @@ void    Game::AddObject(Object *obj)
 {
 	ObjectNode *newNode = new ObjectNode(obj);
 	if (this->_head == nullptr)
-	{
-		std::cout << "first indis added" << std::endl;
 		this->_head = newNode;
-	}
 	else if (obj->boundingBox().width == 68)
 	{
-		std::cout << "turtle added  time" << std::endl;
 		ObjectNode *curr = this->_head;
 		while(curr->_next != nullptr)
 			curr = curr->_next;
@@ -127,7 +123,6 @@ void    Game::AddObject(Object *obj)
 	}
 	else if(obj->boundingBox().width == 66)
 	{
-		std::cout << "mario added 2nd time" << std::endl;
 		newNode->_next = this->_head;
 		this->_head = newNode;
 	}
@@ -139,7 +134,6 @@ void Game::DeleteObject(Object *obj)
 	ObjectNode *curr2;
 	if (obj->boundingBox().width == 66)
 	{
-		std::cout << "test mario delete" << std::endl;
 		curr = this->_head;
 		_head = _head->_next;
 		delete curr->_obj;
@@ -147,7 +141,6 @@ void Game::DeleteObject(Object *obj)
 	}
 	else if (obj->boundingBox().width == 68)
 	{
-		std::cout << "test turtle delete" << std::endl;
 		curr = this->_head;
 		while (curr->_next != nullptr && curr->_next->_obj != obj)
 		{
