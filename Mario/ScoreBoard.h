@@ -4,6 +4,8 @@
 class ScoreBoard
 {
 protected:
+	sf::Texture _headTextures;
+	sf::Sprite _headSprite;
 	sf::Font font;
 	sf::Text text;
 	sf::RenderWindow* _window;
