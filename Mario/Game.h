@@ -23,6 +23,7 @@ public:
 	void	setBackground(sf::RenderWindow& window);
 	bool	onFloor(Object *obj);
 	bool	checkCollusion(Turtle* t, Mario* m, int& side);
+	bool	checkTurtleCollusion(Turtle* t1, Turtle* t2);
 	void	AddObject(Object *obj);
 	void	DeleteObject(Object *obj);
 	Object *getObject(int i);

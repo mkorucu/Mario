@@ -17,6 +17,7 @@ Mario::Mario(sf::RenderWindow *window) : Object(window)
 	this->_sprite.setTexture(this->_textures[0]);
 	this->_sprite.setPosition(this->_pos);
 	this->_heading = LEFT;
+	this->isDead = false;
 }
 
 void	Mario::move()

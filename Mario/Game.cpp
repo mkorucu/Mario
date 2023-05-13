@@ -109,6 +109,18 @@ bool Game::checkCollusion(Turtle* t, Mario* m, int& side)
     return false;
 }
 
+bool Game::checkTurtleCollusion(Turtle* t1, Turtle* t2)
+{
+	if (t1->getIsDead() || t2->getIsDead())
+		return false;
+
+	if (t1->boundingBox().intersects(t2->boundingBox()))
+	{
+		std::cout << "turtle collision start" << std::endl;
+	}
+	return false;
+}
+
 void    Game::AddObject(Object *obj)
 {
 	ObjectNode *newNode = new ObjectNode(obj);
