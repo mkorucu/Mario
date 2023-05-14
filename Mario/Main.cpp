@@ -73,7 +73,7 @@ int	setKeys(sf::Event &event, int &select, int &state)
 }
 int main()
 {
-	int	turtleCount = 1, sayac = 1, select = 0, state = 0, score = 0;
+	int	turtleCount = 1, sayac = 1, select = 0, state = 0, score = 0, totalTurtle = 0;
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
@@ -88,11 +88,12 @@ int main()
 	
 	while (window.isOpen())
 	{
-		if (sayac % 500 == 0 && turtleCount < 5)
+		if (sayac % 500 == 0 && turtleCount < 5 && totalTurtle <= 4)
 		{
-			sayac = 0;
+			sayac = 1;
 			turtleCount++;
 			game.AddObject(new Turtle(&window));
+			totalTurtle++;
 		}
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -143,10 +144,11 @@ int main()
 			for (int i = turtleCount; i >= 0; i--)
 				game.DeleteObject(game.getObject(i));
 			game.AddObject(new Mario(&window));
-			game.AddObject(new Turtle(&window));
+			//game.AddObject(new Turtle(&window));
 			std::cout << " count after after deletion: " << game.ObjectCount() << std::endl;
 			board.setLives(board.getLives() - 3);
-			turtleCount = 1;
+			turtleCount = 0;
+			totalTurtle = 0;
 			board.setScore(-1);
 			state = 1;
 			sayac = 1;
