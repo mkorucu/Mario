@@ -28,10 +28,10 @@ void Mario::CornerChecks()
 		this->_pos.x = 0;
 	if (this->_sprite.getGlobalBounds().top + this->_sprite.getGlobalBounds().height >= this->_window->getSize().y - 167)
 	{
-		if (this->_sprite.getGlobalBounds().left >= this->_window->getSize().x - 130)
-			this->_pos.x = this->_window->getSize().x - 130;
-		else if (this->_sprite.getGlobalBounds().left <= 130)
-			this->_pos.x = 130;
+		if (this->_sprite.getGlobalBounds().left >= this->_window->getSize().x - 150)
+			this->_pos.x = this->_window->getSize().x - 150;
+		else if (this->_sprite.getGlobalBounds().left <= 150)
+			this->_pos.x = 150;
 	}
 }
 

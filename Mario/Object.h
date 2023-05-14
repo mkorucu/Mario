@@ -10,6 +10,7 @@ protected:
 	int	_state;
 	int	_heading;
 	bool	isDead;
+	int	walking;
 public:
 	Object(sf::RenderWindow* window);
 	void	setPosition(sf::Vector2f pos);

@@ -17,6 +17,12 @@ ScoreBoard::ScoreBoard(sf::RenderWindow* window)
 
 void ScoreBoard::setScore(int score)
 {
+	if (score == -1)
+	{
+		this->score = "000000";
+		return;
+	}
+
 	int newScore = std::stoi(this->score);
 	newScore += score;
 	this->score = std::to_string(newScore);

@@ -17,11 +17,11 @@ Turtle::Turtle(sf::RenderWindow* window) : Object(window)
 	this->_sprite.setPosition(this->_pos);
 	this->_heading = RIGHT;
 	this->isDead = false;
+	this->walking = 0;
 }
 
 void Turtle::move()
-{
-	static	int	walking = 0;
+{	
 	sf::RenderStates	states;				//turtle i yazdirirken pipelarin arkasina saklamak icin kullandim
 	states.blendMode = sf::BlendMode(sf::BlendMode::DstAlpha, sf::BlendMode::Zero);
 
@@ -63,7 +63,7 @@ void Turtle::move()
 			this->_heading = RIGHT;
 		}
 		if (this->_vx != 0)
-			this->_sprite.setTexture(this->_textures[(walking++ % 15) / 5]);
+			this->_sprite.setTexture(this->_textures[(this->walking++ % 15) / 5]);
 		if (this->_vx == 0.02f)
 			this->_sprite.setTexture(this->_textures[0]);
 	}
@@ -103,4 +103,5 @@ void Turtle::fall(void)
 	this->_sprite.setTexture(this->_textures[4]);
 	this->_vy = 5.0f;
 	this->isDead = true;
+	this->walking = 0;
 }

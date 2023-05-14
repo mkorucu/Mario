@@ -10,22 +10,22 @@ void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &opti
 	title.setFont(font);
 	title.setCharacterSize(64);
     title.setString("Menu");
-    title.setPosition(window.getSize().x / 2 - option1.getLocalBounds().width / 2, 50);
+	title.setPosition((window.getSize().x / 2) - (title.getLocalBounds().width / 2), 50);
 
     option1.setFont(font);
     option1.setCharacterSize(48);
     option1.setString("Continue Game");
-    option1.setPosition(window.getSize().x / 2 - option1.getLocalBounds().width / 2, 150);
+	option1.setPosition((window.getSize().x / 2) - (option1.getLocalBounds().width / 2), 150);
 
 	option2.setFont(font);
     option2.setCharacterSize(48);
     option2.setString("New Game");
-    option2.setPosition(window.getSize().x / 2 - option2.getLocalBounds().width / 2, 250);
+	option2.setPosition((window.getSize().x / 2) - (option2.getLocalBounds().width / 2), 250);
 
     option3.setFont(font);
     option3.setCharacterSize(48);
     option3.setString("Exit");
-    option3.setPosition(window.getSize().x / 2 - option2.getLocalBounds().width / 2, 350);
+	option3.setPosition((window.getSize().x / 2) - (option3.getLocalBounds().width / 2), 350);
 }
 
 int	setKeys(sf::Event &event, int &select, int &state)
@@ -65,7 +65,7 @@ int	setKeys(sf::Event &event, int &select, int &state)
 }
 int main()
 {
-	int	turtleCount = 1, sayac = 1, select = 0, state = 0;
+	int	turtleCount = 1, sayac = 1, select = 0, state = 0, score = 0;
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
@@ -80,7 +80,7 @@ int main()
 	
 	while (window.isOpen())
 	{
-		if (sayac % 500 == 0 && turtleCount < 6)
+		if (sayac % 500 == 0 && turtleCount < 5)
 		{
 			sayac = 0;
 			turtleCount++;
@@ -130,7 +130,7 @@ int main()
 			std::cout << " count after after deletion: " << game.ObjectCount() << std::endl;
 			board.setLives(board.getLives() - 3);
 			turtleCount = 1;
-			board.setScore(0);
+			board.setScore(-1);
 			state = 1;
 			sayac = 1;
 		}
@@ -157,11 +157,13 @@ int main()
 				if (game.getObject(i)->getIsDead() == true && game.getObject(i)->getPosition().y > 1150)
 				{
 					game.DeleteObject(game.getObject(i));
+					score = 100;
 					game.AddObject(new Turtle(&window));
 				}
 			}
 			game.drawBackground(window);
-			board.setScore(100);
+			board.setScore(score);
+			score = 0;
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(10));
