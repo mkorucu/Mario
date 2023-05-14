@@ -45,3 +45,8 @@ int ScoreBoard::getLives(void)
 {
 	return this->lives;
 }
+
+int ScoreBoard::getScore(void)
+{
+	return std::stoi(this->score);
+}

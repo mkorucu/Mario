@@ -16,4 +16,5 @@ public:
 	void	setScore(int score);
 	void	setLives(int lives);
 	int		getLives(void);
+	int		getScore(void);
 };

@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &option2, sf::Text &option3, sf::Window &window)
+void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &option2, sf::Text &option3, sf::Text& option4, sf::Window &window)
 {
 	if (!font.loadFromFile("../assets/font.ttf"))
 		return ;
@@ -26,6 +26,12 @@ void	setTexts(sf::Font &font, sf::Text &title, sf::Text &option1, sf::Text &opti
     option3.setCharacterSize(48);
     option3.setString("Exit");
 	option3.setPosition((window.getSize().x / 2) - (option3.getLocalBounds().width / 2), 350);
+
+	option4.setFont(font);
+	option4.setCharacterSize(70);
+	option4.setString("YOU WIN!!!");
+	option4.setPosition((window.getSize().x / 2) - (option4.getLocalBounds().width / 2), window.getSize().y / 2);
+	option4.setFillColor(sf::Color::Red);
 }
 
 int	setKeys(sf::Event &event, int &select, int &state)
@@ -45,6 +51,8 @@ int	setKeys(sf::Event &event, int &select, int &state)
 			state = 0;
 			break;
 		case sf::Keyboard::Return:
+			if (select == 1 && state == 1)
+				break;
 			switch (select)
 			{
 				case 0:
@@ -69,14 +77,14 @@ int main()
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
-	sf::Text	title, option1, option2, option3;
+	sf::Text	title, option1, option2, option3, option4;
 	Game    game(window);
 	game.AddObject(new Mario(&window));
     game.AddObject(new Turtle(&window));
 	std::cout << "first count: " << game.ObjectCount() << std::endl;
 	ScoreBoard board(&window);
 
-	setTexts(font, title, option1, option2, option3, window);
+	setTexts(font, title, option1, option2, option3, option4, window);
 	
 	while (window.isOpen())
 	{
@@ -121,6 +129,15 @@ int main()
 			window.draw(option2);
 			window.draw(option3);
 		}
+		if (state == 3)
+		{
+			window.clear();
+			window.draw(option4);
+			window.display();
+			board.setScore(-1);
+			sf::sleep(sf::milliseconds(2000));
+			state = 0;
+		}
 		if (state == 2)
 		{
 			for (int i = turtleCount; i >= 0; i--)
@@ -158,7 +175,8 @@ int main()
 				{
 					game.DeleteObject(game.getObject(i));
 					score = 100;
-					game.AddObject(new Turtle(&window));
+					//game.AddObject(new Turtle(&window));
+					--turtleCount;
 				}
 			}
 			game.drawBackground(window);
@@ -168,6 +186,11 @@ int main()
 		window.display();
 		sf::sleep(sf::milliseconds(10));
 		sayac++;
+		if (board.getScore() == 500)
+		{
+			std::cout << "YOU WIN !" << std::endl;
+			state = 3;
+		}
 	}
 	return 0;
 }
