@@ -65,12 +65,11 @@ int	setKeys(sf::Event &event, int &select, int &state)
 }
 int main()
 {
-	int	turtleCount = 1, sayac = 1;
+	int	turtleCount = 1, sayac = 1, select = 0, state = 0;
 	sf::err().rdbuf(NULL);
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "Mario");
 	sf::Font	font;
 	sf::Text	title, option1, option2, option3;
-	int	select = 0, state = 0;
 	Game    game(window);
 	game.AddObject(new Mario(&window));
     game.AddObject(new Turtle(&window));
@@ -124,10 +123,8 @@ int main()
 		}
 		if (state == 2)
 		{
-			std::cout << " count before deletion: " << game.ObjectCount() << std::endl;
-			for (int i = 0; i <= turtleCount; i++)
-				game.DeleteObject(game.getObject(0));
-			std::cout << " count after deletion: " << game.ObjectCount() << std::endl;
+			for (int i = turtleCount; i >= 0; i--)
+				game.DeleteObject(game.getObject(i));
 			game.AddObject(new Mario(&window));
 			game.AddObject(new Turtle(&window));
 			std::cout << " count after after deletion: " << game.ObjectCount() << std::endl;
@@ -135,6 +132,7 @@ int main()
 			turtleCount = 1;
 			board.setScore(0);
 			state = 1;
+			sayac = 1;
 		}
 		if (state == 1)
 		{

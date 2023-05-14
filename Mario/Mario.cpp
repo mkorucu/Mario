@@ -26,10 +26,13 @@ void Mario::CornerChecks()
 		this->_pos.x = this->_window->getSize().x;
 	if (this->_pos.x <= 0)
 		this->_pos.x = 0;
-	if (this->_pos.y + this->boundingBox().height >= this->_window->getSize().y - 93)
-		this->_pos.y = this->_window->getSize().y - this->boundingBox().height;
-	if (this->_pos.y <= 0)
-		this->_pos.y = 0;
+	if (this->_sprite.getGlobalBounds().top + this->_sprite.getGlobalBounds().height >= this->_window->getSize().y - 167)
+	{
+		if (this->_sprite.getGlobalBounds().left >= this->_window->getSize().x - 130)
+			this->_pos.x = this->_window->getSize().x - 130;
+		else if (this->_sprite.getGlobalBounds().left <= 130)
+			this->_pos.x = 130;
+	}
 }
 
 void	Mario::move()
@@ -116,6 +119,8 @@ void	Mario::jump(bool down)
 		this->_vy += 1.01f;
 		this->_pos.y += this->_vy;
 	}
+	this->CornerChecks();
+
 }
 
 void Mario::fall(void)
