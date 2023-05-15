@@ -35,7 +35,6 @@ void Mario::CornerChecks()
 	}
 	if (this->_pos.y >= this->_window->getSize().y / 4 - 156 && this->_pos.y <= this->_window->getSize().y / 4 - 80)
 	{
-		std::cout << "posy: " << this->_pos.y << "\tposx: " << this->_pos.x << std::endl;
 		if (this->_pos.x >= this->_window->getSize().x - 197)
 			this->_pos.x = this->_window->getSize().x - 200;
 		else if (this->_pos.x <= 197)
@@ -107,8 +106,7 @@ void	Mario::jump(bool down)
 		this->_sprite.setTexture(this->_textures[5]);
 		this->_vy = -27.5f;
 	}
-	if (this->_vy != 0)
-		this->_vy += 1.0001f;
+	this->_vy += 1.0001f;
 	if (down == false && this->_vy < 0)
 		this->_pos.y += this->_vy;
 	else if (down == true && this->_vy < 0)
