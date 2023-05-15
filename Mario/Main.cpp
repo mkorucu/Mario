@@ -144,7 +144,6 @@ int main()
 			for (int i = turtleCount; i >= 0; i--)
 				game.DeleteObject(game.getObject(i));
 			game.AddObject(new Mario(&window));
-			//game.AddObject(new Turtle(&window));
 			std::cout << " count after after deletion: " << game.ObjectCount() << std::endl;
 			board.setLives(board.getLives() - 3);
 			turtleCount = 0;
@@ -177,7 +176,6 @@ int main()
 				{
 					game.DeleteObject(game.getObject(i));
 					score = 100;
-					//game.AddObject(new Turtle(&window));
 					--turtleCount;
 				}
 			}
@@ -186,13 +184,10 @@ int main()
 			score = 0;
 		}
 		window.display();
-		sf::sleep(sf::milliseconds(10));
+		sf::sleep(sf::milliseconds(game.GetSpeed()));
 		sayac++;
 		if (board.getScore() == 500)
-		{
-			std::cout << "YOU WIN !" << std::endl;
 			state = 3;
-		}
 	}
 	return 0;
 }

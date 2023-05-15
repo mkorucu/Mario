@@ -26,12 +26,20 @@ void Mario::CornerChecks()
 		this->_pos.x = this->_window->getSize().x;
 	if (this->_pos.x <= 0)
 		this->_pos.x = 0;
-	if (this->_sprite.getGlobalBounds().top + this->_sprite.getGlobalBounds().height >= this->_window->getSize().y - 167)
+	if (this->_pos.y + this->boundingBox().height >= this->_window->getSize().y - 167)
 	{
-		if (this->_sprite.getGlobalBounds().left >= this->_window->getSize().x - 150)
-			this->_pos.x = this->_window->getSize().x - 150;
-		else if (this->_sprite.getGlobalBounds().left <= 150)
-			this->_pos.x = 150;
+		if (this->_pos.x >= this->_window->getSize().x - 133)
+			this->_pos.x = this->_window->getSize().x - 135;
+		else if (this->_pos.x <= 133)
+			this->_pos.x = 135;
+	}
+	if (this->_pos.y >= this->_window->getSize().y / 4 - 156 && this->_pos.y <= this->_window->getSize().y / 4 - 80)
+	{
+		std::cout << "posy: " << this->_pos.y << "\tposx: " << this->_pos.x << std::endl;
+		if (this->_pos.x >= this->_window->getSize().x - 197)
+			this->_pos.x = this->_window->getSize().x - 200;
+		else if (this->_pos.x <= 197)
+			this->_pos.x = 200;
 	}
 }
 

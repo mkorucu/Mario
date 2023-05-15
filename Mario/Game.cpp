@@ -1,6 +1,11 @@
 #include "main.h"
 #include "Game.h"
 
+int Game::GetSpeed()
+{
+	return this->_speed;
+}
+
 Game::Game(sf::RenderWindow& window)
 {
     this->_head = 0;

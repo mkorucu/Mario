@@ -18,6 +18,7 @@ private:
 	sf::Sprite _pipes[4];
 
 public:
+	int		GetSpeed();
 	Game(sf::RenderWindow &window);
 	void	drawBackground(sf::RenderWindow& window);
 	void	setBackground(sf::RenderWindow& window);
