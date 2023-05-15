@@ -6,9 +6,9 @@
 #include "Game.h"
 #include "Mario.h"
 #include "Object.h"
-#include "Turtle.h"
-#include "ScoreBoard.h"
 #include "ObjectNode.h"
+#include "ScoreBoard.h"
+#include "Turtle.h"
 
 #define NONE	0
 #define UP		0

@@ -107,7 +107,8 @@ void	Mario::jump(bool down)
 		this->_sprite.setTexture(this->_textures[5]);
 		this->_vy = -27.5f;
 	}
-	this->_vy += 1.0001f;
+	if (this->_vy != 0)
+		this->_vy += 1.0001f;
 	if (down == false && this->_vy < 0)
 		this->_pos.y += this->_vy;
 	else if (down == true && this->_vy < 0)

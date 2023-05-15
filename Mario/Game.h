@@ -29,7 +29,6 @@ public:
 	void	AddObject(Object *obj);
 	void	DeleteObject(Object *obj);
 	Object *getObject(int i);
-	int		getObjectCount();
 	ScoreBoard*	getScoreBoard();
 };
 

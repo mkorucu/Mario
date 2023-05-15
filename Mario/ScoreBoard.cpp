@@ -7,7 +7,7 @@ ScoreBoard::ScoreBoard(sf::RenderWindow* window)
 {
 	this->_window = window;
 	this->score = "000000";
-	this->lives = 3;
+	this->lives = 2;
 	this->font.loadFromFile("../assets/font.ttf");
 	this->_headTextures.loadFromFile("../assets/mariohead.png");
 	this->_headTextures.setRepeated(true);
@@ -31,7 +31,7 @@ void ScoreBoard::setScore(int score)
 	this->text.setCharacterSize(42);
 	this->text.setPosition(70, 50);
 	this->_headSprite.setPosition(260, 65);
-	this->_headSprite.setTextureRect(sf::IntRect(0, 0, this->lives * 34, 26));
+	this->_headSprite.setTextureRect(sf::IntRect(0, 0, (this->lives + 1) * 34, 26));
 	this->_window->draw(_headSprite);
 	this->_window->draw(text);
 }

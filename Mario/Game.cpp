@@ -20,7 +20,7 @@ void    Game::setBackground(sf::RenderWindow& window)
 		||  !_pipesBackground[0].loadFromFile("../assets/pipes.png") || !_pipesBackground[1].loadFromFile("../assets/pipe.png"))
 		return;
 	this->_floor.setTexture(_floorTexture);
-	this->_floor.setPosition(0, (float)window.getSize().x - 93);
+	this->_floor.setPosition(0, (float)window.getSize().x - this->_floor.getLocalBounds().height * 3 / 2);
 	for (int i = 0; i < 7; i++)
 	{
 		this->_brick[i].setTexture(_brickTexture);
@@ -183,17 +183,6 @@ Object *Game::getObject(int i)
 		curr = curr->_next;
 	}
 	return curr->_obj;
-}
-
-int	Game::getObjectCount()
-{
-	ObjectNode* curr = this->_head;
-	for (int i = 0; ; i++)
-	{
-		if (curr == nullptr)
-			return (i);
-		curr = curr->_next;
-	}
 }
 
 ScoreBoard* Game::getScoreBoard()

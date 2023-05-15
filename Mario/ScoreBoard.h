@@ -3,7 +3,7 @@
 
 class ScoreBoard
 {
-protected:
+private:
 	sf::Texture _headTextures;
 	sf::Sprite _headSprite;
 	sf::Font font;

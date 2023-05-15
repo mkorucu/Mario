@@ -81,8 +81,6 @@ int main()
 	Game    game(window);
 	game.AddObject(new Mario(&window));
     game.AddObject(new Turtle(&window));
-	std::cout << "first count: " << game.getObjectCount() << std::endl;
-
 	setTexts(font, title, option1, option2, option3, option4, window);
 	
 	while (window.isOpen())
@@ -148,8 +146,7 @@ int main()
 			for (int i = turtleCount; i >= 0; i--)
 				game.DeleteObject(game.getObject(i));
 			game.AddObject(new Mario(&window));
-			std::cout << " count after after deletion: " << game.getObjectCount() << std::endl;
-			game.getScoreBoard()->setLives(game.getScoreBoard()->getLives() - 3);
+			game.getScoreBoard()->setLives(game.getScoreBoard()->getLives() - 2);
 			turtleCount = 0;
 			totalTurtle = 0;
 			game.getScoreBoard()->setScore(-1);
@@ -164,11 +161,8 @@ int main()
 				game.DeleteObject(game.getObject(0));
 				game.AddObject(new Mario(&window));
 			}
-			else if (game.getObject(0)->getIsDead() == true && game.getScoreBoard()->getLives() == 0)
-			{
-				std::cout << "GAME OVER !" << std::endl;
+			else if (game.getObject(0)->getIsDead() == true && game.getScoreBoard()->getLives() == 0) // GAME OVER STATE
 				state = 0;
-			}
 			game.getObject(0)->move();
 			game.getObject(0)->jump(game.onFloor(game.getObject(0)));
 			for (int i = 1; i <= turtleCount; i++)
