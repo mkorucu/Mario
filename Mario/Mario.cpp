@@ -8,7 +8,7 @@ Mario::Mario(sf::RenderWindow *window) : Object(window)																	//	*****
 	this->_vx = 5.0f;
 	this->_vy = 0;
 	this->_textures[0].loadFromFile("../assets/mario1.png");
-	this->_textures[1].loadFromFile("../assets/mario2.png");q															//	Default Mario Constructor
+	this->_textures[1].loadFromFile("../assets/mario2.png");															//	Default Mario Constructor
 	this->_textures[2].loadFromFile("../assets/mario3.png");															//	it sets position, velocity, heading
 	this->_textures[3].loadFromFile("../assets/mario4.png");															//	dead condition, sprite and textures
 	this->_textures[4].loadFromFile("../assets/mario5.png");

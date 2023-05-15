@@ -3,7 +3,7 @@ SRC	= Main.cpp Game.cpp Object.cpp Mario.cpp Turtle.cpp ScoreBoard.cpp ObjectNod
 OBJ = $(SRC:.cpp=.o)
 RM = rm -rf
 CC = g++
-FLAGS = -I/opt/homebrew/Cellar/sfml/2.5.1_2/include -o program -lsfml-graphics -lsfml-window -lsfml-system -L/opt/homebrew/Cellar/sfml/2.5.1_2/lib
+FLAGS = -I/opt/homebrew/Cellar/sfml/2.5.1_2/include -lsfml-graphics -lsfml-window -lsfml-system -L/opt/homebrew/Cellar/sfml/2.5.1_2/lib
 
 #colors
 GREEN		=	\e[92;5;118m
