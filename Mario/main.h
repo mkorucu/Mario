@@ -15,3 +15,6 @@
 #define DOWN	0
 #define LEFT	-1
 #define RIGHT	1
+
+int	setKeys(sf::Event& event, int& select, int& state);
+void	setTexts(sf::Font& font, sf::Text& title, sf::Text& option1, sf::Text& option2, sf::Text& option3, sf::Text& option4, sf::Window& window);

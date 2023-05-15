@@ -6,7 +6,7 @@ int Game::GetSpeed()
 	return this->_speed;
 }
 
-Game::Game(sf::RenderWindow& window)
+Game::Game(sf::RenderWindow& window) : _scoreBoard(new ScoreBoard(&window))
 {
     this->_head = 0;
 	this->_speed = 10;
@@ -185,7 +185,7 @@ Object *Game::getObject(int i)
 	return curr->_obj;
 }
 
-int	Game::ObjectCount()
+int	Game::getObjectCount()
 {
 	ObjectNode* curr = this->_head;
 	for (int i = 0; ; i++)
@@ -194,4 +194,9 @@ int	Game::ObjectCount()
 			return (i);
 		curr = curr->_next;
 	}
-}		
+}
+
+ScoreBoard* Game::getScoreBoard()
+{
+	return this->_scoreBoard;
+}

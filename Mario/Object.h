@@ -7,7 +7,6 @@ protected:
 	sf::Sprite _sprite;
 	sf::Vector2f _pos;
 	sf::RenderWindow* _window;
-	int	_state;
 	int	_heading;
 	bool	isDead;
 	int	walking;

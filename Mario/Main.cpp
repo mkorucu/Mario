@@ -81,8 +81,7 @@ int main()
 	Game    game(window);
 	game.AddObject(new Mario(&window));
     game.AddObject(new Turtle(&window));
-	std::cout << "first count: " << game.ObjectCount() << std::endl;
-	ScoreBoard board(&window);
+	std::cout << "first count: " << game.getObjectCount() << std::endl;
 
 	setTexts(font, title, option1, option2, option3, option4, window);
 	
@@ -102,7 +101,12 @@ int main()
 				window.close();
 			if (event.type == sf::Event::KeyPressed)
 				if (setKeys(event, select, state))
+				{
+					for (int i = turtleCount; i >= 0; i--)
+						game.DeleteObject(game.getObject(i));
+					delete (game.getScoreBoard());
 					return (1);
+				}
 		}
 		window.clear();
 		switch (select)
@@ -135,7 +139,7 @@ int main()
 			window.clear();
 			window.draw(option4);
 			window.display();
-			board.setScore(-1);
+			game.getScoreBoard()->setScore(-1);
 			sf::sleep(sf::milliseconds(2000));
 			state = 0;
 		}
@@ -144,23 +148,23 @@ int main()
 			for (int i = turtleCount; i >= 0; i--)
 				game.DeleteObject(game.getObject(i));
 			game.AddObject(new Mario(&window));
-			std::cout << " count after after deletion: " << game.ObjectCount() << std::endl;
-			board.setLives(board.getLives() - 3);
+			std::cout << " count after after deletion: " << game.getObjectCount() << std::endl;
+			game.getScoreBoard()->setLives(game.getScoreBoard()->getLives() - 3);
 			turtleCount = 0;
 			totalTurtle = 0;
-			board.setScore(-1);
+			game.getScoreBoard()->setScore(-1);
 			state = 1;
 			sayac = 1;
 		}
 		if (state == 1)
 		{
-			if (game.getObject(0)->getIsDead() == true && game.getObject(0)->getPosition().y > 1150 && board.getLives() > 0)
+			if (game.getObject(0)->getIsDead() == true && game.getObject(0)->getPosition().y > 1150 && game.getScoreBoard()->getLives() > 0)
 			{
-				board.setLives(1);
+				game.getScoreBoard()->setLives(1);
 				game.DeleteObject(game.getObject(0));
 				game.AddObject(new Mario(&window));
 			}
-			else if (game.getObject(0)->getIsDead() == true && board.getLives() == 0)
+			else if (game.getObject(0)->getIsDead() == true && game.getScoreBoard()->getLives() == 0)
 			{
 				std::cout << "GAME OVER !" << std::endl;
 				state = 0;
@@ -180,13 +184,13 @@ int main()
 				}
 			}
 			game.drawBackground(window);
-			board.setScore(score);
+			game.getScoreBoard()->setScore(score);
 			score = 0;
 		}
 		window.display();
 		sf::sleep(sf::milliseconds(game.GetSpeed()));
 		sayac++;
-		if (board.getScore() == 500)
+		if (game.getScoreBoard()->getScore() == 500)
 			state = 3;
 	}
 	return 0;

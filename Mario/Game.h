@@ -4,18 +4,19 @@
 #include "Turtle.h"
 #include "Mario.h"
 #include "ObjectNode.h"
+#include "ScoreBoard.h"
 class Game
 {
 private:
 	int	_speed;
-	unsigned long	time;
 	ObjectNode	*_head;
+	ScoreBoard	*_scoreBoard;
 	sf::Texture _floorTexture;
 	sf::Texture _brickTexture;
 	sf::Texture	_pipesBackground[2];
-	sf::Sprite _floor;
-	sf::Sprite _brick[7];
-	sf::Sprite _pipes[4];
+	sf::Sprite	_floor;
+	sf::Sprite	_brick[7];
+	sf::Sprite	_pipes[4];
 
 public:
 	int		GetSpeed();
@@ -28,7 +29,8 @@ public:
 	void	AddObject(Object *obj);
 	void	DeleteObject(Object *obj);
 	Object *getObject(int i);
-	int		ObjectCount();
+	int		getObjectCount();
+	ScoreBoard*	getScoreBoard();
 };
 
 
