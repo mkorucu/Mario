@@ -2,7 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "Object.h"
-Turtle::Turtle(sf::RenderWindow* window) : Object(window)
+Turtle::Turtle(sf::RenderWindow* window) : Object(window)							
 {
 	this->_vx = 2.99f;
 	this->_vy = 0;
