@@ -5,6 +5,8 @@ Object::Object(sf::RenderWindow* window)
 {
 	this->_window = window;
     this->isDead = false;
+    this->_heading = RIGHT;
+    this->walking = 1;
 }
 
 void	Object::setPosition(sf::Vector2f pos)
